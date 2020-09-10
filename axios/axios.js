@@ -84,8 +84,8 @@ const deleteFromDB = (url, id) => {
 
 //axiosFunc(updateLesson)
 //axiosGet(url.urlGetAll, "all")
-axiosGetById(url.urlGetAll, 2, "single")
-axiosGetById(url.msg, 2, "single")
+//axiosGetById(url.urlGetAll, 2, "single")
+//axiosGetById(url.msg, 2, "single")
 //deleteFromDB(url.deleteUrl, 2)
 //axiosUpdate(url.urlGetAll, 6, updateLesson)
 //axiosJoin(url.urlGetAll, 1)
