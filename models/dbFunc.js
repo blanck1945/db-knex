@@ -5,7 +5,27 @@ const db = require("../db/dbConfig")
 
 const add = async (table, lesson) => {
     const [id] = await db(table).insert(lesson)
-    return findById(id)
+    return findById(table, id)
+}
+const findById = (table, id) => {
+    return db(table).where({ id }).first()
+}
+/*
+async function add(lesson) {
+    //return await db("lessons").insert(lesson, ["id", "name"]);
+    const [id] = await db("lessons").insert(lesson);
+    return findById(id);
+}*/
+
+const addLesson = async (data) => {
+    try {
+        const [id] = await db("lessons").insert(data)
+        return findById(id)
+    }
+    catch (err) {
+        return err
+    }
+
 }
 
 const addWithKey = async (table, msg, table_field, foreing_id) => {
@@ -16,10 +36,10 @@ const addWithKey = async (table, msg, table_field, foreing_id) => {
 const find = (table) => {
     return db(table)
 }
-
+/*
 const findById = (table, id) => {
     return db(table).where({ id }).first()
-}
+}*/
 
 const findAndJoin = (table1, table2, join_id) => {
     return db(table1)
@@ -52,6 +72,7 @@ const update = async (id, changes) => {
 module.exports = {
     add,
     addWithKey,
+    addLesson,
     find,
     findById,
     findAndJoin,

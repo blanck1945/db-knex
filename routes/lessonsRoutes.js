@@ -49,17 +49,13 @@ router.patch("/:id", (req, res) => {
 })
 
 router.post("/add", (req, res) => {
-    try {
-        Lessons.add(tables.Lessons, req.body)
-            .then(lesson => {
-                res.status(200).json(lesson)
-            })
-            .catch(err => res.json({ message: "enable to add lesson" }))
-    }
-    catch (err) {
-        res.send(err)
-    }
+    Lessons.add(tables.lessons, req.body)
+        .then(lesson => {
+            res.status(200).json(lesson)
+        })
+        .catch(err => res.json({ message: "Unable to perform operation", reminder: "Check table is pass to DBfunc" }))
 })
+
 
 router.delete("/delete/:id", (req, res) => {
     const { id } = req.params

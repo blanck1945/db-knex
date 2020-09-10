@@ -7,16 +7,25 @@ const url = {
     deleteUrl: "http://localhost:7900/api/lessons/delete"
 }
 
-const axiosFunc = async (lesson) => {
+const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons/add"
+const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/"
+
+const axiosPost = async (url, lesson) => {
+    const axiosUrl = url + "/add"
     Axios({
         method: "post",
         data: lesson,
-        url: url.addUrl
+        url: axiosUrl
     }).then(res => console.log(res.data))
-        .catch(err => console.log(err.response.data.message))
-
+        .catch(err => console.log(err.response.data))
 
 }
+
+const lesson = {
+    name: "Sociologia"
+}
+
+axiosPost(url.urlGetAll, lesson)
 
 const axiosGet = (url, query) => {
     const axiosUrl = url + "/" + query
@@ -58,9 +67,7 @@ const axiosJoin = (url, id) => {
         .catch(err => console.log(err.response.data))
 }
 
-const lesson = {
-    name: "Ciencias Politicas"
-}
+
 
 const msg = {
     sender: "Ramon",
@@ -103,6 +110,8 @@ const postMsg = (url, id, msg) => {
     }).then(res => console.log(res.data))
         .catch(err => console.log(err.response))
 }
+
+//postMsg(msgUrl.get, 2, msg)
 
 
 
