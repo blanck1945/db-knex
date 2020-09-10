@@ -7,7 +7,7 @@ const url = {
     deleteUrl: "http://localhost:7900/api/lessons/delete"
 }
 
-const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons/add"
+const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
 const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/"
 
 const axiosPost = async (url, lesson) => {
@@ -17,7 +17,7 @@ const axiosPost = async (url, lesson) => {
         data: lesson,
         url: axiosUrl
     }).then(res => console.log(res.data))
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err.response))
 
 }
 
@@ -25,7 +25,9 @@ const lesson = {
     name: "Sociologia"
 }
 
-axiosPost(url.urlGetAll, lesson)
+
+axiosPost(herokuUrl, lesson)
+//axiosPost(url.urlGetAll, lesson)
 
 const axiosGet = (url, query) => {
     const axiosUrl = url + "/" + query
