@@ -39,28 +39,32 @@ router.post("/login", async (req, res) => {
 })
 
 router.post("/add", async (req, res) => {
-    const { username, email, password } = req.body
+    const sendUser = req.body
+    try {
+        if (!sendUser.username || !sendUser.email || !sendUser.password) {
+            return res.status(400).json({ message: "All fields are required" })
+        }
 
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" })
+        const userMatch = await db.findByString(tables.users, "username", sendUser.username)
+        if (userMatch) {
+            return res.status(404).json({ message: "Username already exist" })
+        }
+        const emailMatch = await db.findByString(tables.users, "email", sendUser.email)
+        if (emailMatch) {
+            return res.status(404).json({ message: "Email already exist" })
+        }
+
+        const hashPass = await bcrypt.hashSync(sendUser.password, 12)
+        sendUser.password = hashPass
+
+        const addedUser = await db.add(tables.users, sendUser)
+        res.status(200).json(addedUser)
+        /*.then(user => res.status(200).json(user))
+            .catch(err => err.status(500).json({ message: "Unable to perform the operation", db: "Check table value is pass to functions" }))*/
     }
-
-    const userMatch = await db.findByString(tables.users, "username", username)
-    if (userMatch) {
-        return res.status(404).json({ message: "Username already exist" })
+    catch (err) {
+        res.json(err)
     }
-
-    const emailMatch = await db.findByString(tables.users, "email", email)
-    if (emailMatch) {
-        return res.status(404).json({ message: "Email already exist" })
-    }
-
-    const hashPass = await bcrypt.hashSync(req.body.password, 12)
-    req.body.password = hashPass
-
-    db.add(tables.users, req.body)
-        .then(user => res.status(200).json(user))
-        .catch(err => err.status(500).json({ message: "Unable to perform the operation", db: "Check table value is pass to functions" }))
 })
 
 router.get("/logout", (req, res) => {

@@ -1,17 +1,19 @@
 // Update with your config settings.
+require("dotenv").config()
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    client: 'pg',
     connection: {
-      filename: './data/lesson.db3'
+      host: 'localhost',
+      database: process.env.DATABASE,
+      user: process.env.USER,
+      password: process.env.PASSWORD
     },
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done)
-      }
+      min: 2,
+      max: 10,
     }
   },
   production: {

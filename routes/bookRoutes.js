@@ -11,16 +11,17 @@ router.get("/all", (req, res) => {
         }))
 })
 
-router.post("/add", (req, res) => {
+router.post("/add", async (req, res) => {
     const book = req.body
-    /*const data = {
-        ...book,
-        [product_similar]: JSON.stringify(book.product_similar)
-    }*/
-
-    db.add(tables.books, book)
-        .then(book => res.status(200).json(book))
-        .catch(err => res.status(404).json(err))
+    try {
+        const addedBook = await db.add(tables.books, book)
+        console.log(addedBook)
+    }
+    catch (err) {
+        res.json(err)
+    }
+    /*.then(book => res.status(200).json(book))
+        .catch(err => res.status(404).json(err))*/
 })
 
 module.exports = router;

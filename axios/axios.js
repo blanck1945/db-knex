@@ -10,9 +10,10 @@ const url = {
     addUrl: "http://localhost:7900/api/lessons/add",
     deleteUrl: "http://localhost:7900/api/lessons/delete"
 }
-
+/*
 const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
-const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/"
+const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/",
+//const herokuRegister = "https://node-db-tutorial1945.herokuapp.com/api/auth"*/
 
 const axiosPost = async (url, data) => {
     const axiosUrl = url + "/add"
@@ -24,6 +25,40 @@ const axiosPost = async (url, data) => {
         .catch(err => console.log(err.response))
 
 }
+
+const registerData = {
+    username: "blanck990",
+    email: "blanck0@gmail.com",
+    password: "roger990"
+}
+
+//axiosPost(url.book, book)
+axiosPost(registerData)
+
+
+const loginUser = (url, user) => {
+    const axiosUrl = url + "/login"
+    Axios({
+        method: "post",
+        data: user,
+        url: axiosUrl
+    })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+}
+
+const userData = {
+    username: "kubo990",
+    password: "bianchi1933"
+}
+//loginUser("https://node-db-tutorial1945.herokuapp.com/api/auth/", userData)
+
+/*
+const userData = {
+    username: "kubo990",
+    email: "kubo990@gmail.com",
+    password: "1234567"
+}*/
 
 //axiosPost(url.book, book)
 
@@ -109,22 +144,6 @@ const axiosJoin = (url, id) => {
         .catch(err => console.log(err.response.data))
 }
 
-
-const loginUser = (url, user) => {
-    const axiosUrl = url + "/login"
-    Axios({
-        method: "post",
-        data: user,
-        url: axiosUrl
-    })
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
-}
-
-const userData = {
-    username: "blanck1945",
-    password: "bianchi1933"
-}
 
 //loginUser(url.auth, userData)
 

@@ -6,9 +6,10 @@ const morgan = require("morgan")
 const helmet = require("helmet")
 
 const server = express()
+server.use(express.urlencoded({ extended: true }))
 server.use(morgan('dev'))
 server.use(helmet())
-//server.use(cors())
+server.use(cors())
 
 server.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -38,6 +39,7 @@ const userRoutes = require("./routes/userRoutes")
 const bookRoutes = require("./routes/bookRoutes")
 const authRoutes = require("./auth/authRoutes")
 const restricted = require("./auth/restricted_middleware")
+const { urlencoded } = require("express")
 
 
 server.use(express.json())
@@ -47,7 +49,7 @@ server.use(session(sessionConfig))
 server.use("/api/auth", authRoutes)
 server.use("/api/lessons", lessonsRoutes)
 server.use("/api/messages", messageRoutes)
-server.use("/api/users", restricted, userRoutes)
+server.use("/api/users", /*restricted*/userRoutes)
 server.use("/api/books", bookRoutes)
 
 server.get("/", async (req, res) => {

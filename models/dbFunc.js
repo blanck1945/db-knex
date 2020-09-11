@@ -4,9 +4,11 @@ const db = knex(config.development)*/
 const db = require("../db/dbConfig")
 
 const add = async (table, data) => {
-    const id = await db(table).insert(data, ['id'])
+    return db.insert(data).returning("*").into(table)
+    /*const [id] = await db(table).returning('id').insert(data)
+    const searchId = parseInt(id)
     //const [id] = await db(table).insert(data)
-    return findById(table, id)
+    return findById(table, searchId)*/
 }
 
 const addWithKey = async (table, msg, table_field, foreing_id) => {
@@ -15,8 +17,8 @@ const addWithKey = async (table, msg, table_field, foreing_id) => {
     //const [id] = await db(table).where({ [table_field]: foreing_id }).insert(msg)
 }
 
-const find = (table) => {
-    return db(table)
+const find = async (table) => {
+    return await db(table)
 }
 
 const findAllByString = (table, field, value) => {

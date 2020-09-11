@@ -4,20 +4,28 @@ const db = require("../models/dbFunc")
 const bcrypt = require("bcryptjs")
 const tables = require("./tables")
 
-router.get("/all", (req, res) => {
-    db.find(tables.users)
-        .then(data => res.status(200).json(data))
-        .catch(err => err.status(500).json({
+router.get("/all", async (req, res) => {
+    try {
+        const users = await db.find(tables.users)
+        res.status(200).json(users)
+    }
+    catch (err) {
+        res.status(500).json({
             message: "Unable to perform the operation", db: "Check table value is pass to functions"
-        }))
+        })
+    }
 })
 
 router.get("/single/:id", (req, res) => {
-    db.findById(tables.user, req.params.id)
-        .then(user => res.status(200).json(user))
-        .catch(err => err.status(500).json({
+    try {
+        const user = db.findById(tables.user, req.params.id)
+        res.status(200).json(user)
+    }
+    catch (err) {
+        res.status(500).json({
             message: "Unable to perform the operation", db: "Check table value is pass to functions"
-        }))
+        })
+    }
 })
 
 router.get("/single/:field/:value", (req, res) => {
