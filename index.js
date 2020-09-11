@@ -44,7 +44,7 @@ server.use(express.json())
 server.use(session(sessionConfig))
 
 //using routes
-server.use("/api/auth", cors(), authRoutes)
+server.use("/api/auth", authRoutes)
 server.use("/api/lessons", lessonsRoutes)
 server.use("/api/messages", messageRoutes)
 server.use("/api/users", restricted, userRoutes)
