@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express")
 const server = express()
 const session = require("express-session")
+const cors = require("cors")
 
 const PORT = process.env.PORT || 7901
 
@@ -27,6 +28,7 @@ const restricted = require("./auth/restricted_middleware")
 
 server.use(express.json())
 server.use(session(sessionConfig))
+server.use(cors())
 
 //using routes
 server.use("/api/auth", authRoutes)

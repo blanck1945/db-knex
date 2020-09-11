@@ -36,9 +36,6 @@ router.get("/single/:field/:value", (req, res) => {
         }))
 })
 
-
-
-
 router.delete("/delete/:id", (req, res) => {
     const { id } = req.params
     db.remove(tables.users, id)
