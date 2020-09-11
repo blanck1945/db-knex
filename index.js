@@ -1,8 +1,14 @@
 require("dotenv").config()
 const express = require("express")
-const server = express()
-const session = require("express-session")
 const cors = require("cors")
+const session = require("express-session")
+const morgan = require("morgan")
+const helmet = require("helmet")
+
+const server = express()
+server.use(morgan('dev'))
+server.use(helmet())
+server.use(cors())
 
 const PORT = process.env.PORT || 7901
 
@@ -26,9 +32,9 @@ const bookRoutes = require("./routes/bookRoutes")
 const authRoutes = require("./auth/authRoutes")
 const restricted = require("./auth/restricted_middleware")
 
+
 server.use(express.json())
 server.use(session(sessionConfig))
-server.use(cors())
 
 //using routes
 server.use("/api/auth", authRoutes)
