@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 7901
 
 const sessionConfig = {
     name: 'Shirobako',
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60,
         secure: false, //In production set this flag to true
