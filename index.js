@@ -9,7 +9,7 @@ const server = express()
 server.use(morgan('dev'))
 server.use(helmet())
 server.use(cors())
-app.use((req, res, next) => {
+server.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "*");
     res.header(
