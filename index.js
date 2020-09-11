@@ -8,16 +8,8 @@ const helmet = require("helmet")
 const server = express()
 server.use(morgan('dev'))
 server.use(helmet())
-server.use(cors())
-server.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+//server.use(cors())
+
 
 const PORT = process.env.PORT || 7901
 
@@ -46,7 +38,7 @@ server.use(express.json())
 server.use(session(sessionConfig))
 
 //using routes
-server.use("/api/auth", authRoutes)
+server.use("/api/auth", cors(), authRoutes)
 server.use("/api/lessons", lessonsRoutes)
 server.use("/api/messages", messageRoutes)
 server.use("/api/users", restricted, userRoutes)
