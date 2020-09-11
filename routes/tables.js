@@ -2,5 +2,7 @@
 
 module.exports = {
     lessons: "lessons",
-    messages: "messages"
+    messages: "messages",
+    users: 'users',
+    books: 'books'
 }

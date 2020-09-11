@@ -11,7 +11,6 @@ router.get("/all", (req, res) => {
 
 router.get("/single/:id", (req, res) => {
     const { id } = req.params
-    console.log(id)
     db.findById(tables.messages, id)
         .then(data => {
             if (!data) {
@@ -22,6 +21,22 @@ router.get("/single/:id", (req, res) => {
             }
         })
         .catch(err => res.status(500).json(err))
+})
+
+router.get("/single/:field/:value", (req, res) => {
+    const { field } = req.params
+    const { value } = req.params
+    db.findByString(tables.messages, field, value)
+        .then(data => {
+            if (!data) {
+                res.status(404).json({ message: "Record not found" })
+            } else {
+                res.status(200).json(data)
+            }
+        })
+        .catch(err => res.status(500).json({
+            message: "Something went wrong"
+        }))
 })
 
 router.post("/add/:id", (req, res) => {

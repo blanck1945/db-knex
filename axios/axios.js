@@ -1,8 +1,12 @@
 const Axios = require("axios")
+const book = require("./data")
 
 const url = {
-    msg: "http://localhost:7900/api/lessons/message",
-    urlGetAll: "http://localhost:7900/api/lessons",
+    auth: "http://localhost:7900/api/auth",
+    msg: "http://localhost:7900/api/messages",
+    user: "http://localhost:7900/api/users",
+    book: "http://localhost:7900/api/books",
+    lessons: "http://localhost:7900/api/lessons",
     addUrl: "http://localhost:7900/api/lessons/add",
     deleteUrl: "http://localhost:7900/api/lessons/delete"
 }
@@ -10,34 +14,47 @@ const url = {
 const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
 const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/"
 
-const axiosPost = async (url, lesson) => {
+const axiosPost = async (url, data) => {
     const axiosUrl = url + "/add"
     Axios({
         method: "post",
-        data: lesson,
+        data: data,
         url: axiosUrl
     }).then(res => console.log(res.data))
         .catch(err => console.log(err.response))
 
 }
 
+//axiosPost(url.book, book)
+
 const lesson = {
-    name: "Sociologia"
+    name: "Biologia"
+}
+const user = {
+    username: "blanck1945",
+    email: "blanck1945@gmail.com",
+    password: "bianchi1933"
 }
 
-
-axiosPost(herokuUrl, lesson)
+//axiosPost(herokuUrl, lesson)
 //axiosPost(url.urlGetAll, lesson)
+//axiosPost(url.user, user)
 
-const axiosGet = (url, query) => {
-    const axiosUrl = url + "/" + query
+const axiosGet = (url) => {
+    const axiosUrl = url + "/all"
+
     Axios({
         method: "get",
         url: axiosUrl
     })
         .then(res => console.log(res.data))
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err.response.data.message))
 }
+
+//axiosGet(url.user)
+//axiosGet(url.msg)
+//axiosGet(url.lessons)
+//axiosGet(url.book)
 
 const axiosGetById = (url, id, query) => {
     const axiosUrl = url + "/" + query + "/" + id
@@ -48,6 +65,29 @@ const axiosGetById = (url, id, query) => {
         .then(res => console.log(res.data))
         .catch(err => console.log(err.response.data))
 }
+
+const axiosGetByString = (url, field, value) => {
+    const axiosUrl = url + "/single/" + field + "/" + value
+    Axios({
+        method: "get",
+        url: axiosUrl
+    })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err.response))
+}
+
+const axiosContain = (url, field, value) => {
+    const axiosUrl = url + "/single/contain/" + field + "/" + value
+    Axios({
+        method: "get",
+        url: axiosUrl
+    })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err.response))
+}
+
+//axiosGetByString(url.msg, "sender", "Freya")
+//axiosContain(url.lessons, "name", "Mate")
 
 const axiosUpdate = (url, id, changes) => {
     Axios({
@@ -70,6 +110,23 @@ const axiosJoin = (url, id) => {
 }
 
 
+const loginUser = (url, user) => {
+    const axiosUrl = url + "/login"
+    Axios({
+        method: "post",
+        data: user,
+        url: axiosUrl
+    })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+}
+
+const userData = {
+    username: "blanck1945",
+    password: "bianchi1933"
+}
+
+//loginUser(url.auth, userData)
 
 const msg = {
     sender: "Ramon",
@@ -88,6 +145,8 @@ const deleteFromDB = (url, id) => {
         .then(res => console.log(res.data))
         .catch(err => console.log(err.response))
 }
+
+//deleteFromDB(url.user, 1)
 
 //axiosGet(url.msg, "all")
 

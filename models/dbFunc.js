@@ -3,24 +3,36 @@ const config = require("../knexfile")
 const db = knex(config.development)*/
 const db = require("../db/dbConfig")
 
-const add = async (table, lesson) => {
-    return await db(table).insert(lesson, ['id'])
-    const [id] = await db(table).insert(lesson)
+const add = async (table, data) => {
+    const id = await db(table).insert(data, ['id'])
+    //const [id] = await db(table).insert(data)
     return findById(table, id)
 }
 
 const addWithKey = async (table, msg, table_field, foreing_id) => {
-    return await db(table).where({ [table_field]: foreing_id }).insert(msg, ['id'])
+    await db(table).where({ [table_field]: foreing_id }).insert(msg, ['id'])
+    return findById(table, id)
     //const [id] = await db(table).where({ [table_field]: foreing_id }).insert(msg)
-    //return findById(table, id)
 }
 
 const find = (table) => {
     return db(table)
 }
 
+const findAllByString = (table, field, value) => {
+    return db(table).where({ [field]: value })
+}
+
 const findById = (table, id) => {
     return db(table).where({ id }).first()
+}
+
+const findByString = (table, field, value) => {
+    return db(table).where({ [field]: value }).first()
+}
+
+const findIfContain = (table, field, value) => {
+    return db(table).where(field, 'like', `%${value}%`)
 }
 
 const findAndJoin = (table1, table2, join_id) => {
@@ -55,7 +67,10 @@ module.exports = {
     add,
     addWithKey,
     find,
+    findAllByString,
     findById,
+    findByString,
+    findIfContain,
     findAndJoin,
     remove,
     update,
