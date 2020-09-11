@@ -13,7 +13,7 @@ const url = {
 /*
 const herokuUrl = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
 const herokuPostMsg = "https://node-db-tutorial1945.herokuapp.com/api/lessons/message/",
-//const herokuRegister = "https://node-db-tutorial1945.herokuapp.com/api/auth"*/
+const herokuRegister = "https://node-db-tutorial1945.herokuapp.com/api/auth"*/
 
 const axiosPost = async (url, data) => {
     const axiosUrl = url + "/add"
@@ -33,7 +33,7 @@ const registerData = {
 }
 
 //axiosPost(url.book, book)
-axiosPost(registerData)
+//axiosPost(registerData)
 
 
 const loginUser = (url, user) => {
@@ -86,9 +86,12 @@ const axiosGet = (url) => {
         .catch(err => console.log(err.response.data.message))
 }
 
-//axiosGet(url.user)
+const herokuUser = "https://node-db-tutorial1945.herokuapp.com/api/users"
+const herokuLessons = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
+
+//axiosGet(herokuUser)
 //axiosGet(url.msg)
-//axiosGet(url.lessons)
+axiosGet(herokuLessons)
 //axiosGet(url.book)
 
 const axiosGetById = (url, id, query) => {
