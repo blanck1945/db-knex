@@ -15,14 +15,12 @@ router.post("/add", async (req, res) => {
     const book = req.body
     try {
         const addedBook = await db.add(tables.books, book)
-        console.log(addedBook)
+        res.status(200).json(addedBook)
     }
     catch (err) {
         console.log(err)
         res.json(err)
     }
-    /*.then(book => res.status(200).json(book))
-        .catch(err => res.status(404).json(err))*/
 })
 
 module.exports = router;

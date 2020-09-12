@@ -1,5 +1,5 @@
 const Axios = require("axios")
-const book = require("./data")
+const books = require("./data")
 
 const url = {
     auth: "http://localhost:7900/api/auth",
@@ -32,7 +32,7 @@ const registerData = {
     password: "roger990"
 }
 
-axiosPost(url.book, book)
+axiosPost(url.book, books.book2)
 //axiosPost(registerData)
 
 
@@ -83,16 +83,16 @@ const axiosGet = (url) => {
         url: axiosUrl
     })
         .then(res => console.log(res.data))
-        .catch(err => console.log(err.response.data.message))
+        .catch(err => console.log(err.response.data))
 }
 
 const herokuUser = "https://node-db-tutorial1945.herokuapp.com/api/users"
 const herokuLessons = "https://node-db-tutorial1945.herokuapp.com/api/lessons"
-
+const herokuBooks = "https://node-db-tutorial1945.herokuapp.com/api/books"
 //axiosGet(herokuUser)
 //axiosGet(url.msg)
-axiosGet(herokuLessons)
-//axiosGet(url.book)
+//axiosGet(herokuLessons)
+axiosGet(herokuBooks)
 
 const axiosGetById = (url, id, query) => {
     const axiosUrl = url + "/" + query + "/" + id
