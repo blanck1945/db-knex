@@ -11,6 +11,7 @@ module.exports = {
       user: process.env.USER,
       password: process.env.PASSWORD
     },
+    debug: true,
     pool: {
       min: 2,
       max: 10,

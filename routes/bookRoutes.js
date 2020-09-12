@@ -18,6 +18,7 @@ router.post("/add", async (req, res) => {
         console.log(addedBook)
     }
     catch (err) {
+        console.log(err)
         res.json(err)
     }
     /*.then(book => res.status(200).json(book))

@@ -22,7 +22,7 @@ const axiosPost = async (url, data) => {
         data: data,
         url: axiosUrl
     }).then(res => console.log(res.data))
-        .catch(err => console.log(err.response))
+        .catch(err => console.log(err))
 
 }
 
@@ -32,7 +32,7 @@ const registerData = {
     password: "roger990"
 }
 
-//axiosPost(url.book, book)
+axiosPost(url.book, book)
 //axiosPost(registerData)
 
 

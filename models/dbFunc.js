@@ -4,7 +4,13 @@ const db = knex(config.development)*/
 const db = require("../db/dbConfig")
 
 const add = async (table, data) => {
-    return db.insert(data).returning("*").into(table)
+    try {
+        return db.insert(data).returning("*").into(table)
+    }
+    catch (err) {
+        'EXEC SQL WHENEVER SQLWARNING SQLPRINT';
+        return err
+    }
     /*const [id] = await db(table).returning('id').insert(data)
     const searchId = parseInt(id)
     //const [id] = await db(table).insert(data)

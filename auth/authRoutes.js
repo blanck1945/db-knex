@@ -59,8 +59,6 @@ router.post("/add", async (req, res) => {
 
         const addedUser = await db.add(tables.users, sendUser)
         res.status(200).json(addedUser)
-        /*.then(user => res.status(200).json(user))
-            .catch(err => err.status(500).json({ message: "Unable to perform the operation", db: "Check table value is pass to functions" }))*/
     }
     catch (err) {
         res.json(err)
