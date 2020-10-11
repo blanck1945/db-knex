@@ -5,6 +5,8 @@ exports.up = function (knex) {
         table.text("username", 255).notNullable().unique().index()
         table.text("email", 255).notNullable().unique()
         table.text("password").notNullable()
+        table.string("user_role").defaultTo("buyer")
+        table.timestamps(true, true)
     })
         .createTable("books", (table) => {
             table.increments()
@@ -30,9 +32,24 @@ exports.up = function (knex) {
             table.json("product_similar").nullable()
             table.integer("product_percentage").notNullable()
             table.integer("product_total_sell").notNullable().defaultTo(0)
+            table.timestamps(true, true)
+        })
+        .createTable("carts", (table) => {
+            table.increments()
+            table.json("cart_products")
+            table.timestamps(true, true)
+            table.integer("user_id")
+                .nullable()
+                .unsigned()
+                .references("id")
+                .inTable("users")
+                .onDelete("CASCADE")
+                .onUpdate("CASCADE")
         })
 };
 
 exports.down = function (knex) {
-    return knex.schema.dropTableIfExists("users").dropTableIfExists("books")
+    return knex.schema.dropTableIfExists("carts")
+        .dropTableIfExists("users")
+        .dropTableIfExists("books")
 };

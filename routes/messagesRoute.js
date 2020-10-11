@@ -55,7 +55,7 @@ router.post("/add/:id", (req, res) => {
             if (!msg.sender || !msg.message) {
                 res.status(400).json({ message: "Both fields must be provided" })
             }
-            db.addWithKey(tables.messages, msg, "lesson_id", id)
+            db.addWithKey(tables.messages, "lesson_id", id, msg)
                 .then(msg => res.status(200).json(msg))
                 .catch(err => res.status(400).json(err))
         })

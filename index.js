@@ -38,6 +38,7 @@ const messageRoutes = require("./routes/messagesRoute")
 const userRoutes = require("./routes/userRoutes")
 const bookRoutes = require("./routes/bookRoutes")
 const authRoutes = require("./auth/authRoutes")
+const cartRoutes = require("./routes/cartRoutes")
 const restricted = require("./auth/restricted_middleware")
 const { urlencoded } = require("express")
 
@@ -51,6 +52,7 @@ server.use("/api/lessons", lessonsRoutes)
 server.use("/api/messages", messageRoutes)
 server.use("/api/users", /*restricted*/userRoutes)
 server.use("/api/books", bookRoutes)
+server.use("/api/carts", cartRoutes)
 
 server.get("/", async (req, res) => {
     res.send("Server is working")

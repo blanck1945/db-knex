@@ -46,7 +46,7 @@ router.get("/:id/messages", (req, res) => {
 router.patch("/:id", (req, res) => {
     const { id } = req.params
     const changes = req.body
-    db.update(id, changes)
+    db.update(tables.lessons, id, changes)
         .then(data => {
             if (data) {
                 console.log("using this route")
